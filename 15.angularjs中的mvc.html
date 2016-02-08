@@ -1,0 +1,50 @@
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="angular.js"></script>
+	<script src="angular-route.js"></script>
+	<style>
+	body{text-align: center;}
+	ul{list-style:none;display: inline-block;margin:0 auto;padding: 0;}
+	li{display: inline-block;padding:20px;}
+	a{text-decoration: none;color:#fa2;}
+	.view{width:500px;margin:0 auto;padding: 20px;text-align: center;}
+	</style>
+</head>
+<body>
+	<!-- <h1>在angularjs中  Model对象一般依附于作用域</h1> -->
+	<!-- <h2>controll 和  model  都很熟悉了，这里重点介绍angularjs  mvc中 的 view</h2> -->
+	<ul>
+		<li><a href="#/">Index</a></li>
+		<li><a href="#/book">Book</a></li>
+		<li><a href="#/game">Game</a></li>
+	</ul>
+	<div ng-view class="view"></div>
+</body>
+<script>
+	var myapp = angular.module('myapp', ['ngRoute']);
+	myapp.controller('indexctrl', ['$scope', function($scope){
+		$scope.content="This is index";	
+	}])
+	myapp.controller('bookctrl', ['$scope', function($scope){
+		$scope.content="This is book page";	
+	}])
+	myapp.controller('gamectrl', ['$scope', function($scope){
+		$scope.content="This is game page";	
+	}])
+
+	myapp.config(['$routeProvider',function($routeProvider) {
+		$routeProvider.when('/',{
+			controller:'indexctrl',
+			template:'<h2>{{content}}</h2>'
+		}).when('/book',{
+			controller:'bookctrl',
+			template:'<h2>{{content}}</h2>'
+		}).when('/game',{
+			controller:'gamectrl',
+			template:'<h2>{{content}}</h2>'
+		});
+	}])
+</script>
+</html>

@@ -1,0 +1,17 @@
+<html ng-app="myapp">
+<head>
+	<title></title>	
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+	{{name}},world;
+</body>
+<script>
+	var myapp = angular.module('myapp', []);
+	myapp.config(function($controllerProvider) {
+		$controllerProvider.register('myctrl',['$scope',function($scope){
+			$scope.name="heloo";
+		}]);
+	});
+	</script>
+</html>

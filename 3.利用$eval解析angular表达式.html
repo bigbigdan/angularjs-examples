@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="utf-8">
+	<title>利用$eval解析angular表达式</title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+<input type="text" ng-model="expr">
+<span ng-bind="$eval(expr)"><span>
+</body>
+<script type="text/javascript">
+	var myapp  =  angular.module('myapp', []);
+	myapp.controller('myctrl',['$scope',function($scope){
+		$scope.expr = '20+1|number:0';
+	}]);
+</script>
+</html>

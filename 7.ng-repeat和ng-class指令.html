@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.js"></script>
+	<style>
+		*{
+			cursor: default;
+		}
+		ul{
+			padding:40px;
+			margin:0 auto;
+			box-sizing:border-box;
+			list-style:none;
+			width:50%;
+			border:1px solid #555;
+			line-height: 40px;
+		}
+		ul li:first-child{
+			font-weight: bolder;
+			margin-bottom:20px;
+		}
+		span{
+			display: inline-block;
+			width:19%;
+		}
+		ul li span:first-child{
+			padding-left:20px;
+			box-sizing:border-box;
+		}
+		ul li:first-child  span{
+			padding: 0;
+		}
+		.gray{
+			background: #ccc;
+		}
+		.active{
+			color:#fa2;
+			background: rgba(23,45,124,0.1);
+		}
+	</style>
+</head>
+<ul>
+	<li>
+		<span>order</span>
+		<span>name</span>
+		<span>sex</span>
+		<span>isfirst</span>
+		<span>islast</span>
+	</li>
+	<li ng-repeat="stu in students" ng-click="liClick($index)" ng-class="{'active':cur==$index}" ng-class-odd="'gray'">
+		<span>{{$index}}</span>
+		<span>{{stu.name}}</span>
+		<span>{{stu.sex}}</span>
+		<span>{{$first?'shi':'fou'}}</span>
+		<span>{{$last?'shi':'fou'}}</span>	
+	</li>
+</ul>
+<body ng-controller="myctrl">
+	<script type="text/javascript">
+		var myapp = angular.module('myapp', []);
+		myapp.controller('myctrl', ['$scope', function($scope){
+			$scope.liClick = function(i){
+				$scope.cur = i;
+			};
+			$scope.students = [
+			{name:'zhangsan',sex:'nan',age:18,score:99},
+			{name:'lisi',sex:'nv',age:17,score:89},
+			{name:'wangwu',sex:'nan',age:16,score:79},
+			{name:'zhaoliu',sex:'nv',age:12,score:69}
+			]	
+		}])
+	</script>
+</body>
+</html>

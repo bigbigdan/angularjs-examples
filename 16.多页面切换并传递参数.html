@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="angular.js"></script>
+	<script src="angular-route.js"></script>
+</head>
+<body>
+	<div ng-view class="view"></div>	
+</body>
+<script>
+	var students = [
+		{id:12,name:'zhangsan',sex:'nan',age:18,score:99},
+		{id:15,name:'lisi',sex:'nv',age:17,score:89},
+		{id:22,name:'wangwu',sex:'nan',age:16,score:79},
+		{id:32,name:'zhaoliu',sex:'nv',age:12,score:69}
+	]
+	var myapp = angular.module('myapp', ['ngRoute']);
+
+	myapp.controller('indexctrl', ['$scope', function($scope){
+		$scope.students = students;	
+	}])
+	myapp.controller('infoctrl', ['$scope','$routeParams',function($scope,$routeParams){
+		for (var i = students.length - 1; i >= 0; i--) {
+			if(students[i].id == $routeParams.id){
+				$scope.stu = students[i];
+				break;
+			}
+		};
+	}])
+	myapp.config(['$routeProvider',function($routeProvider) {
+		$routeProvider.when('/',{
+			controller:'indexctrl',
+			templateUrl:'15.1学生姓名列表.html'
+		}).when('/view/:id',{
+			controller:'infoctrl',
+			templateUrl:'15.2学生信息详情.html',
+			publicAccess:true
+		}).otherwise({
+			redirectTo:'/'
+		});
+	}])
+</script>
+</html>

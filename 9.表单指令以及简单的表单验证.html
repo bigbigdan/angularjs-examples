@@ -1,0 +1,26 @@
+<!doctype html>
+<html ng-app="myapp">
+<head>
+	<title>form</title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+	<form name="myForm" ng-submit="save()">
+		<input name="input" type="text" ng-model="text"  required ng-trim="false">
+		<span ng-show="myForm.input.$error.required">required!</span>
+		<br>
+		<input type="text" name="mail" ng-model="email" ng-pattern="reg" required>
+		<span ng-show="myForm.mail.$error.required">can't be empty</span>
+		<span ng-show="myForm.mail.$error.pattern">email is invalid!</span>
+		<br>
+		<input ng-disabled="myForm.$invalid" type="submit" value="submit">
+	</form>
+	<script>
+		var myapp = angular.module('myapp', []);
+		myapp.controller('myctrl', ['$scope', function($scope){
+			$scope.text="";
+			$scope.reg=/^\s*\w*\s*$/;
+		}])
+	</script>
+</body>
+</html>

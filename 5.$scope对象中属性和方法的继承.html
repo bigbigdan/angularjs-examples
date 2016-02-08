@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.js"></script>
+</head>
+<body>
+<div ng-controller="rootctrl">
+	<div ng-controller="childctrl-1">
+		<h3>{{school.name}}</h3>	
+		<h6>{{xi}}</h6>
+	</div>
+	<div ng-controller="childctrl-2">
+		<h3>{{school.name}}</h3>	
+		<h6>{{xi}}</h6>
+	</div>
+</div>
+<script type="text/javascript">
+	var myapp = angular.module('myapp', []);
+	myapp.controller('rootctrl', ['$scope', function($scope){
+		$scope.school={}
+		$scope.school.name="shanxidaxue";
+	}])
+	myapp.controller('childctrl-1', ['$scope', function($scope){
+		$scope.xi="jisuanji";
+	}])
+	myapp.controller('childctrl-2', ['$scope', function($scope){
+		$scope.xi="guanli";
+	}])
+</script>
+</body>
+</html>

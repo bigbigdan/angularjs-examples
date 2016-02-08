@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+<script id="tpl-base" type="text/ng-template">
+ <span>name:</span>{{name}}
+ <span>email:</span>{{email}}
+</script>
+<div ng-include="'tpl-base'" scope="" onload=""></div>
+<script type="text/javascript">
+	var myapp = angular.module('myapp', []);
+	myapp.controller('myctrl', ['$scope', function($scope){
+		$scope.name="zhangsan"
+		$scope.email="7@qq.com"
+	}])
+</script>
+</body>
+</html>

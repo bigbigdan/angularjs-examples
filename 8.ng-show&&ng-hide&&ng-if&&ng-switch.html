@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+	<div ng-show="isshow">show</div>
+	<div ng-hide="ishide">hide</div>
+	<div ng-if="ngif===4">if</div>
+	<ul ng-switch on="switchexpr">
+		<li ng-switch-when="1">1</li>
+		<li ng-switch-when="2">2</li>
+		<li ng-switch-when="3">3</li>
+	</ul>
+	<script type="text/javascript">
+		var myapp = angular.module('myapp', []);
+		myapp.controller('myctrl', ['$scope', function($scope){
+			$scope.isshow=true;
+			$scope.ishide=false;
+			$scope.switchexpr=2;
+			$scope.ngif=2;
+		}])
+	</script>
+</body>
+</html>

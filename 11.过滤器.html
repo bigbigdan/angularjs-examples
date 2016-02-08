@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.js"></script>
+	<style>
+		*{
+			cursor: default;
+		}
+		ul{
+			padding:40px;
+			margin:0 auto;
+			box-sizing:border-box;
+			list-style:none;
+			width:50%;
+			border:1px solid #555;
+			line-height: 40px;
+		}
+		ul li:first-child{
+			font-weight: bolder;
+			margin-bottom:20px;
+		}
+		span{
+			display: inline-block;
+			width:15%;
+		}
+		ul li span:first-child{
+			padding-left:20px;
+			box-sizing:border-box;
+		}
+		ul li:first-child  span{
+			padding: 0;
+		}
+		.gray{
+			background: #ccc;
+		}
+		.active{
+			color:#fa2;
+			background: rgba(23,45,124,0.1);
+		}
+	</style>
+</head>
+<ul>
+<input type="text" ng-model="key">
+	<li>
+		<span>order</span>
+		<span ng-click="title='name';desc=!desc">name</span>
+		<span>sex</span>
+		<span ng-click="title='score';desc=!desc">score</span>
+		<span>isfirst</span>
+		<span>islast</span>
+	</li>
+	<!-- <li ng-repeat="stu in students| orderBy:'-score'|limitTo:3 " ng-click="liClick($index)" ng-class="{'active':cur==$index}" ng-class-odd="'gray'"> -->
+	<!-- <li ng-repeat="stu in students| filter:findscore " ng-click="liClick($index)" ng-class="{'active':cur==$index}" ng-class-odd="'gray'"> -->
+	<!-- <li ng-repeat="stu in students| young:1" ng-click="liClick($index)" ng-class="{'active':cur==$index}" ng-class-odd="'gray'"> -->
+	<!-- <li ng-repeat="stu in students| filter:{name:key}" ng-click="liClick($index)" ng-class="{'active':cur==$index}" ng-class-odd="'gray'"> -->
+	<li ng-repeat="stu in students| orderBy:title:desc" ng-click="liClick($index)" ng-class="{'active':cur==$index}" ng-class-odd="'gray'">
+		<span>{{$index}}</span>
+		<span>{{stu.name}}</span>
+		<span>{{stu.sex}}</span>
+		<span>{{stu.score}}</span>
+		<span>{{$first?'shi':'fou'}}</span>
+		<span>{{$last?'shi':'fou'}}</span>	
+	</li>
+</ul>
+<body ng-controller="myctrl">
+	<script type="text/javascript">
+		var myapp = angular.module('myapp', []);
+		myapp.controller('myctrl', ['$scope', function($scope){
+			$scope.title='name';
+			$scope.desc=false;
+			$scope.liClick = function(i){
+				$scope.cur = i;
+			};
+			$scope.key = '';
+			$scope.students = [
+			{name:'zhangsan',sex:'nan',age:18,score:99},
+			{name:'lisi',sex:'nv',age:18,score:89},
+			{name:'wangwu',sex:'nan',age:16,score:79},
+			{name:'zhaoliu',sex:'nv',age:12,score:69}
+			]	
+			$scope.findscore= function (e) {
+				return e.score > 85 && e.score < 100;
+			}
+		}])
+		myapp.filter('young',function(){
+			return function(e,type){
+				var r =  [];
+				var _sex = type?'nan':'nv';
+				for (var i = 0; i < e.length; i++) {
+					if(e[i].age>=12 && e[i].age<=17 && e[i].sex == _sex){
+						r.push(e[i]);
+					}
+				};
+				return r;
+			}	
+		})
+	</script>
+</body>
+</html>

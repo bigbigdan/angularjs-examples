@@ -1,0 +1,55 @@
+<html ng-app="myapp">
+<head>
+	<title>$watch和$apply</title>
+	<script src="angular.js"></script>
+</head>
+<body>
+	<input ng-model="str" type="text">
+	<div ng-controller="parent">
+		<span style="color:red;font-size:20px;">{{count}}</span>
+		<div ng-controller="child-1">
+			<button ng-click="$emit('click','a')">dianjixiangshang</button>
+			<button ng-click="xiangxia()">dianjixiangxia</button>
+			<div ng-controller="child-1-1">
+			<span style="color:blue;font-size:13px;">{{count}}</span>
+			</div>
+		</div>
+	</div>
+	<div ng-controller="pingji"></div>
+</body>
+<script>
+	var myapp = angular.module('myapp', []);
+	// myapp.controller('myctrl', ['$scope', function($scope){
+	// 	$scope.$watch('str',function(){
+	// 		console.log(arguments);
+	// 	})	
+	// }])
+
+	myapp.controller('parent', ['$scope', function($scope){
+		$scope.count=0;
+		$scope.$on('click',function(ev,data){
+			console.log(ev,data);
+			$scope.count ++;	
+		})	
+	}])
+
+	myapp.controller('child-1', ['$scope', function($scope){
+		$scope.xiangshang= function  () {
+			$scope.$emit('click','a');	
+		}
+		$scope.xiangxia= function  () {
+			$scope.$broadcast('click','b');	
+		}
+	}])
+
+	myapp.controller('pingji', ['$scope', function($scope){
+	}])
+	myapp.controller('child-1-1', ['$scope', function($scope){
+		$scope.count=0;
+		$scope.$on('click',function(ev,data){
+			console.log(ev,data);
+			$scope.count ++;	
+		})	
+	}])
+</script>
+</html>

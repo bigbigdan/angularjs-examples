@@ -1,0 +1,26 @@
+<html ng-app="myapp">
+<head>
+	<script src="angular.js"></script>
+	<style>
+	input{
+		display: block;
+	}
+	</style>
+</head>
+<body ng-controller="myctrl">
+	<input type="checkbox" name="check" ng-model="check.v1">	
+	<input type="checkbox" ng-change="fn()" name="check" ng-model="check.v2" ng-true-value="'yes'" ng-false-value="'no'">	
+	<input type="radio" name="rad">	
+	<input type="radio" name="rad">	
+	<input type="radio" name="rad">	
+</body>
+<script>
+	var myapp=angular.module('myapp', []);
+	myapp.controller('myctrl', ['$scope', function($scope){
+		$scope.check = {v1:true,v2:"yes"};	
+		$scope.fn = function(){
+			console.log($scope.check);
+		}
+	}])
+</script>
+</html>

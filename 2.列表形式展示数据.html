@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+	<title>列表形式展示数据</title>
+	<meta charset="utf-8">
+	<script src="angular.js"></script>
+	<style type="text/css">
+	li span{
+		display:inline-block;
+		width:8%;
+	}
+	</style>
+</head>
+<body ng-controller="stuctrl">
+<h3 ng-click="shuff()">以列表的形式呈现数据</h3>
+<div class="container" >
+<ul>
+	<li ng-repeat="stu in students">
+		<span>{{stu.name}}</span>
+		<span>{{stu.sex}}</span>
+		<span>{{stu.age}}</span>
+		<span>{{stu.score}}</span>
+	</li>
+</ul>
+</div>		
+<script type="text/javascript">
+	var myapp = angular.module('myapp', []);
+	myapp.controller('stuctrl', ['$scope', function($scope){
+		$scope.students = [
+		{name:'zhangsan',sex:'nan',age:18,score:99},
+		{name:'lisi',sex:'nv',age:17,score:89},
+		{name:'wangwu',sex:'nan',age:16,score:79},
+		{name:'zhaoliu',sex:'nv',age:12,score:69}
+		]	
+		$scope.shuff=function(){
+			$scope.students.unshift($scope.students.pop());
+		}
+	}]);
+</script>
+</body>
+</html>

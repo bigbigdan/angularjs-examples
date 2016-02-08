@@ -1,0 +1,73 @@
+<html ng-app="myapp">
+<head>
+	<title></title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+	{{text}}
+	<button ng-click="click(0)">1</button>
+	<button ng-click="click(1)">2</button>
+	<button ng-click="click(2)">3</button>
+	<button ng-click="click(3)">4</button>
+</body>
+<script type="text/javascript">
+	var myapp = angular.module('myapp', []);
+	myapp.config(function($provide) {
+		$provide.provider('show1',function(){
+			this.$get  =  function(){
+				return {
+					val:function  (name) {
+						return name;
+					},
+					random:function () {
+						return Math.random();
+					}
+				}
+			}
+		})
+	})
+	myapp.config(function($provide) {
+		$provide.service('show2',function(){
+			return {
+				val:function  (name) {
+					return name;
+				}
+			}
+		})
+	})
+	myapp.config(function($provide) {
+		$provide.factory('show3',function(){
+			return {
+				val:function  (name) {
+					return name;
+				}
+			}
+		})
+	})
+	myapp.config(function($provide) {
+		$provide.value('show4',function(name){
+			return name;
+		})
+	})
+	//推断式注入为省略下面那一组字符串
+	//行内式注入 下列即为行内式注入
+	myapp.controller('myctrl', ['$scope','show1','show2','show3','show4',function($scope,show1,show2,show3,show4){
+		$scope.text='hello';
+		$scope.click = function  (num) {
+			if(num === 0){
+				// $scope.text = show1.val('show1');
+				$scope.text = show1.random();
+			}	
+			if(num === 1){
+				$scope.text = show2.val('show2');
+			}	
+			if(num === 2){
+				$scope.text = show3.val('show3');
+			}	
+			if(num === 3){
+				$scope.text = show4('show4');
+			}	
+		}
+	}])
+</script>
+</html>
