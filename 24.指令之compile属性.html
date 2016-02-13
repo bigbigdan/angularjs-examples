@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>指令之compile属性</title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+	<ts-a></ts-a>	
+	<ts-b></ts-b>	
+</body>
+<script>
+	var myapp = angular.module('myapp', []);
+	myapp.controller('myctrl', ['$scope',function($scope){
+		
+	}])
+	myapp.directive('tsA', function(){
+		// Runs during compile
+		return {
+			restrict:'EAC',
+			compile:function(tEle,tAttrs,trans){
+				console.log('正在编译A指令');
+			}
+		};
+	}).directive('tsB', function(){
+		// Runs during compile
+		return {
+			restrict:'EAC',
+			compile:function(tEle,tAttrs,trans){
+				console.log('正在编译B指令');
+			}
+		};
+	});
+</script>
+</html>

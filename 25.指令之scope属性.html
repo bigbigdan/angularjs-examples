@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>指令之scope属性</title>
+	<script src="angular.js"></script>
+	<script type="text/ng-template" id="tpl">
+		<div class="tips">{{message}}</div>
+		<button ng-transclude></button>
+	</script>
+</head>
+<body ng-controller="myctrl">
+	<input type="text" ng-model="message" placeholder="请输入提示内容">
+	<ts-message>add</ts-message>	
+</body>
+<script>
+	var myapp = angular.module('myapp', []);
+	myapp.controller('myctrl', [function(){
+		
+	}])
+	myapp.directive('tsMessage', [function(){
+		return {
+			restrict: 'AEC', // E = Element, A = Attribute, C = Class, M = Comment
+			templateUrl: 'tpl',
+			transclude: true,
+			scope:true,
+			link: function(scope, iElm, iAttrs, controller) {
+				iElm.bind('click',function(){
+					scope.$apply(function(){
+						scope.message = 'fixed value';
+					});	
+				})	
+			}
+		};
+	}]);
+	
+</script>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>angular内置服务</title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+	<button ng-click="onclick()">click</button>
+	<input type="text" ng-model="url">	
+	<script>
+		var app = angular.module('myapp', []);
+		app.controller('myctrl', ['$scope','$location', function($scope,$location){
+			$scope.onclick = function(){
+				$scope.url = $location.absUrl();
+			}
+		}])
+	</script>
+</body>
+</html>

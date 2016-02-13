@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="my-app">
+<head>
+	<meta charset="UTF-8">
+	<title>服务的装饰器</title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="my-ctrl">
+	<div>{{stu.name}}</div>
+	<div>{{stu.sex}}</div>
+	<div>{{stu.age}}</div>
+</body>
+<script>
+	var myapp  = angular.module('my-app', []);
+	myapp.factory('$student', [function(){
+		return {
+			name:'zhangsan',
+			sex:'nv'
+		}
+	}]).config(['$provide',function($provide) {
+		$provide.decorator('$student', ['$delegate', function($delegate){
+			$delegate.age = 3;	
+			return $delegate
+		}])	
+	}])
+	myapp.controller('my-ctrl', ['$scope','$student',function($scope,$student){
+		$scope.stu = $student;
+	}])
+</script>
+</html>

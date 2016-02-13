@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="my-app">
+<head>
+	<meta charset="UTF-8">
+	<title>指令简介</title>
+	<script src="angular.js"></script>
+</head>
+<body ng-controller="myctrl">
+	<div ts-hello></div>
+	<div class="ts-hello"></div>
+	<ts-hello></ts-hello>
+</body>
+<script>
+	var myapp = angular.module('my-app', []);
+	myapp.directive('tsHello', [function(){
+		// Runs during compile
+		return {
+			// name: '',
+			// priority: 1,
+			// terminal: true,
+			// scope: {}, // {} = isolate, true = child, false/undefined = no change
+			// controller: function($scope, $element, $attrs, $transclude) {},
+			// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+			restrict: 'AEC', // E = Element, A = Attribute, C = Class, M = Comment
+			template: '<h3>Hello Angular</h3>',
+			// templateUrl: '',
+			// replace: true,
+			// transclude: true,
+			// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+			// link: function($scope, iElm, iAttrs, controller) {
+				
+			// }
+		};
+	}]);
+	myapp.controller('myctrl', ['$scope', function($scope){
+		
+	}])
+</script>
+</html>

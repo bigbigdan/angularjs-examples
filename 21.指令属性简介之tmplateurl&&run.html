@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>指令属性简介之tmplateUrl&&run</title>
+	<script src="angular.js"></script>
+</head>
+<script type="text/ng-template" id="tpl">
+	<h3>模版内容来源于script标签</h3>	
+</script>
+<body> 
+	<div ts-tplcache></div>	
+	<div ts-tplfile></div>	
+	<div ts-tplscript></div>	
+</body>
+<script>
+	var myapp = angular.module('myapp', []);
+	myapp.run(function($templateCache){
+		$templateCache.put('cache','<h3>内容来源于缓存!</h3>');	
+	})
+	myapp.directive('tsTplcache', [function(){
+		// Runs during compile
+		return {
+			restrict:'EAC',
+			templateUrl:'cache',
+			replace:true
+		};
+	}]);
+	myapp.directive('tsTplscript', [function(){
+		// Runs during compile
+		return {
+			restrict:'EAC',
+			templateUrl:'tpl',
+			replace:true
+		};
+	}]);
+	myapp.directive('tsTplfile', [function(){
+		// Runs during compile
+		return {
+			restrict:'EAC',
+			templateUrl:'tpl.html',
+			replace:true
+		};
+	}]);
+</script>
+</html>

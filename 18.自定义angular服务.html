@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义angular服务</title>
+	<script src="angular.js"></script>
+</head>
+<body>
+	<h1>利用$provide自定义服务</h1>
+	<div class="show" ng-controller="myctrl">
+		<span>{{info('name')}}</span>
+		<span>{{info('sex')}}</span>
+		<span>{{info('score')}}</span>
+	</div>
+	<h1>利用$factory自定义服务</h1>
+	<div class="show" ng-controller="myctrl2">
+		<span>{{str('cc')}}</span>
+		<span>{{name(1)}}</span>
+	</div>
+
+	<h1>利用$service自定义服务</h1>
+	<div class="show" ng-controller="myctrl3">
+		<span>{{obj.name}}</span>
+		<span>{{obj.sex}}</span>
+		<span>{{obj.show('aabc')}}</span>
+	</div>
+
+	<h1>利用$constant和$value方法自定义服务</h1>
+	<div class="show" ng-controller="myctrl4">
+		<span>{{book}}</span>
+		<span>{{rate}}</span>
+	</div>
+
+	<script>
+		var myapp = angular.module('myapp', [],function($provide){
+			$provide.factory('$output',function(){
+				var stu={
+					name:'zhangsan',
+					sex:'nan',
+					score:'60'
+				}
+				return stu;
+			})
+		})
+		myapp.factory('$outfn', [ function(){
+			return {
+				str:function(n){
+					return n;
+				}
+			}
+		}])
+		myapp.factory('$outarr', [function(){
+			return [1,2,3,4,5];
+		}])
+		myapp.controller('myctrl2', ['$scope','$outfn','$outarr', function($scope,$outfn,$outarr){
+			$scope.str=function  (n) {
+				return $outfn.str(n);
+			}
+			$scope.name = function  (num) {
+				return $outarr[num];
+			}
+		}])
+		myapp.service('$students',  function(){
+			this.name = 'zhangsan';
+			this.sex  = 'nv';
+			this.show = function  (n) {
+				return n;
+			}	
+		})
+		myapp.controller('myctrl3', ['$scope','$students', function($scope,$students){
+			$scope.obj = $students;	
+		}])
+		myapp.constant('$ISBN', {isbn:10312313131});
+		myapp.value('$RATE', {USD:0.5});
+		myapp.controller('myctrl4', ['$scope','$ISBN','$RATE', function($scope,$ISBN,$RATE){
+			var newRate = 0.8;
+			angular.extend($RATE, {USD:0.8});
+			$scope.book = $ISBN.isbn;
+			$scope.rate = $RATE.USD;
+		}])
+
+		myapp.controller('myctrl', ['$scope','$output' ,function($scope,$output){
+			$scope.info = function(n){
+				for(var _n in $output){
+					if(n === _n){
+						return $output[_n];
+					}
+				}
+			}	
+		}])
+	</script>
+</body>
+</html>
